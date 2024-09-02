@@ -1,0 +1,27 @@
+apiVersion: skaffold/v4beta9
+kind: Config
+metadata:
+  name: calrissian-session
+
+build:
+  artifacts:
+    - image: worker
+      context: .
+      docker:
+        dockerfile: Dockerfile
+
+deploy:
+  helm:
+    releases:
+      - name: calrissian-session
+        chartPath: calrissian-session
+        namespace: calrissian
+        createNamespace: true
+        setValueTemplates:
+          pvc.storage: 10Gi
+          pvc.storageClassName: standard
+          resources.limits.cpu: "2"
+          resources.limits.memory: "1024Mi"
+          resources.requests.cpu: "1"
+          resources.requests.memory: "512Mi"
+

@@ -1,0 +1,13 @@
+
+pvs: 
+  storage: 10Gi
+  storageClassName: standard
+
+
+resources:
+  limits:
+    cpu: "2"
+    memory: "1024Mi"
+  requests:
+    cpu: "1"
+    memory: "512Mi"

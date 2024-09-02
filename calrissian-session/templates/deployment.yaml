@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calrissian-session
+  labels:
+    app: calrissian
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: calrissian
+  template:
+    metadata:
+      labels:
+        app: calrissian
+    spec:
+      serviceAccountName: calrissian-sa
+      containers:
+        - name: worker
+          image: worker
+          command: ["sleep", "infinity"]
+          volumeMounts:
+            - mountPath: /calrissian
+              name: calrissian-volume
+          resources:
+            limits:
+              cpu: "{{ .Values.resources.limits.cpu }}"
+              memory: "{{ .Values.resources.limits.memory }}"
+            requests:
+              cpu: "{{ .Values.resources.requests.cpu }}"
+              memory: "{{ .Values.resources.requests.memory }}"
+          env:
+            - name: CALRISSIAN_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+      volumes:
+        - name: calrissian-volume
+          persistentVolumeClaim:
+            claimName: calrissian-claim
