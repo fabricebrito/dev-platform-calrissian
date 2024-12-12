@@ -16,8 +16,8 @@ spec:
     spec:
       serviceAccountName: calrissian-sa
       containers:
-        - name: worker
-          image: worker
+        - name: calrissian-session
+          image: {{ .Values.image }}
           command: ["sleep", "infinity"]
           volumeMounts:
             - mountPath: /calrissian

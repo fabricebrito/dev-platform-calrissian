@@ -18,6 +18,7 @@ deploy:
         namespace: calrissian
         createNamespace: true
         setValueTemplates:
+          image: "{{.IMAGE_REPO_worker}}/{{.IMAGE_TAG_worker}}@{{.IMAGE_DIGEST_worker}}"
           pvc.storage: 10Gi
           pvc.storageClassName: standard
           resources.limits.cpu: "2"

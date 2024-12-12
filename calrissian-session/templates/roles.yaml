@@ -3,7 +3,7 @@ kind: Role
 metadata:
   name: pod-manager-role
 rules:
-- apiGroups: [""] # "" indicates the core API group
+- apiGroups: [""]
   resources: ["pods"]
   verbs: ["create","patch","delete","list","watch","get"]
 ---
@@ -12,8 +12,8 @@ kind: Role
 metadata:
   name: log-reader-role
 rules:
-- apiGroups: [""] # "" indicates the core API group
-  resources: ["pods","pods/log"]
+- apiGroups: [""]
+  resources: ["pods/log"]
   verbs: ["get","list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -21,6 +21,6 @@ kind: Role
 metadata:
   name: job-submitter-role
 rules:
-- apiGroups: ["batch"] # "" indicates the core API group
+- apiGroups: ["batch"]
   resources: ["jobs"]
   verbs: ["create","patch","delete","list","watch","get"]
